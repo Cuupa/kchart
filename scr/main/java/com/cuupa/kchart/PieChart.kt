@@ -31,17 +31,9 @@ class PieChart(dataPoints: List<DataPoint>) : Chart(dataPoints) {
 
         wholeImage.color = Color.white
         wholeImage.fillRect(0, 0, width, height)
-        val diameter = if (drawWithLegend) {
-            (width.toFloat() / 1.6f).roundToInt()
-        } else {
-            (width.toFloat() / 1.2f).roundToInt()
-        }
+        val diameter = getDiameter(drawWithLegend, width)
         val radius = diameter / 2
-        val positionX = if (drawWithLegend) {
-            (((width.toFloat() - diameter.toFloat()) / 100) * 20).toInt()
-        } else {
-            diameter - radius
-        }
+        val positionX = getPositionX(drawWithLegend, width, diameter, radius)
         val positionY = (height.toFloat() / 2).roundToInt() - radius
 
         val diagramparts = computeDiagram(positionX, positionY, diameter)
@@ -60,6 +52,22 @@ class PieChart(dataPoints: List<DataPoint>) : Chart(dataPoints) {
         return bufferedImage
     }
 
+    private fun getPositionX(
+        drawWithLegend: Boolean,
+        width: Int,
+        diameter: Int,
+        radius: Int
+    ) = if (drawWithLegend) {
+        (((width.toFloat() - diameter.toFloat()) / 100) * 20).toInt()
+    } else {
+        diameter - radius
+    }
+
+    private fun getDiameter(drawWithLegend: Boolean, width: Int) = if (drawWithLegend) {
+        (width.toFloat() / 1.6f).roundToInt()
+    } else {
+        (width.toFloat() / 1.2f).roundToInt()
+    }
 
     override fun createLegend(wholeImage: Graphics2D, positionX: Int, positionY: Int, diameter: Int, width: Int) {
         val positionXLegend = positionX + diameter + (((positionX.toFloat() / diameter.toFloat()) * 100) * 20).toInt()
