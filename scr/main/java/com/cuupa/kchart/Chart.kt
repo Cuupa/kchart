@@ -10,6 +10,7 @@ abstract class Chart(protected val dataPoints: List<DataPoint>) {
     protected var colors = listOf<Color>()
 
     init {
+        // color between RGB 25 and 230 results in these kind of colors. maybe could randomize it
         colors = listOf(
             Color(48, 124, 232),
             Color(69, 167, 73),
