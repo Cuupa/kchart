@@ -7,6 +7,22 @@ import java.util.stream.IntStream
 
 abstract class Chart(protected val dataPoints: List<DataPoint>) {
 
+    protected var colors = listOf<Color>()
+
+    init {
+        colors = listOf(
+            Color(48, 124, 232),
+            Color(69, 167, 73),
+            Color(232, 109, 48),
+            Color(151, 189, 243),
+            Color(230, 25, 110),
+            Color(230, 178, 25),
+            Color(34, 169, 178),
+            Color(240, 117, 168),
+            Color(150, 25, 230)
+        )
+    }
+
     abstract fun getImage(): BufferedImage
 
     abstract fun getImage(width: Int, height: Int): BufferedImage
@@ -32,14 +48,6 @@ abstract class Chart(protected val dataPoints: List<DataPoint>) {
 
     protected fun scaleFontSize(width: Int) = (width / 100) * 2 + 16
 
-    protected var colors = listOf(
-        Color(48, 124, 232),
-        Color(151, 189, 243),
-        Color(232, 109, 48),
-        Color(230, 25, 110),
-        Color(230, 178, 25),
-        Color(240, 117, 168)
-    )
 
     fun setCustomColors(colors: List<Color>) {
         this.colors = colors
